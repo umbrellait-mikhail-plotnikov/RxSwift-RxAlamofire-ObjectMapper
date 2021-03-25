@@ -21,7 +21,7 @@ struct RepostoryModel: Mappable {
     
     mutating func mapping(map: Map) {
         name <- map["name"]
-        url  <- map["url"]
+        url  <- map["html_url"]
     }
     
     var name: String?
