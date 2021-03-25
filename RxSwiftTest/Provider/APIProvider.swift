@@ -8,15 +8,15 @@
 import Foundation
 import RxSwift
 
-class APIProvider {
+class APIProvider: APIProviderProtocol {
+    
     func getRepositories(_ gitHubID: String) -> Observable<[RepostoryModel]> {
         	
         guard !gitHubID.isEmpty,
-              let url = URL(string: "https://api.github.com/users/\(gitHubID)/repos") else { return Observable.just([RepostoryModel(name: "Wrong url", url: "Wrong url")]) }
+              let url = URL(string: "https://api.github.com/users/\(gitHubID)/repos") else { return Observable.just([]) }
         
         return URLSession.shared
             .rx.json(url: url)
-            .retry(10)
             .map {
                 var repositories = [RepostoryModel]()
                 

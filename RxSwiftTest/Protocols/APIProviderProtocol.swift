@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+
+protocol APIProviderProtocol {
+    func getRepositories(_ gitHubID: String) -> Observable<[RepostoryModel]>
+}

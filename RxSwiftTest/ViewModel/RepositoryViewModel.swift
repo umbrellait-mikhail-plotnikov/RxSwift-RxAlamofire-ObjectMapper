@@ -14,14 +14,14 @@ struct RepositoryViewModel {
     let searchText = BehaviorRelay(value: "")
     let disposeBag = DisposeBag()
     
-    let APIProvider: APIProvider
+    let APIProvider: APIProviderProtocol
     var data: Driver<[RepostoryModel]>
     
-    init(APIProvider: APIProvider) {
+    init(APIProvider: APIProviderProtocol) {
         self.APIProvider = APIProvider
          
         data = self.searchText.asObservable()
-            .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapLatest {
                 APIProvider.getRepositories($0)
